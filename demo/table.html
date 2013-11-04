@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banke Demo</title>
+    <style>
+        .banke {
+            border-collapse: collapse;
+            color:#000;
+            background:lightskyblue;
+            margin: 0 auto;
+        }
+
+        .banke thead.clone {
+           /* position: fixed;
+            top:0;
+            background:lightskyblue;*/
+        }
+
+        .banke, .banke td, .banke th {
+            border: solid 2px #333;
+        }
+
+        .crosshairOn tr:hover {
+            background: rgba(0,0,0,.3);
+
+        }
+        .crosshairOn col.hover {
+            background: rgba(0,0,0,.3);
+        }
+        .crosshairOn td:hover {
+            background: rgba(204,204,24,.5);
+        }
+    </style>
+    <script src="jquery-1.7.1.min.js"></script>
+    <script src="../src/banke.js"></script>
+</head>
+<body>
+    <table id="table" class="banke">
+        <colgroup>
+            <col class="c0">
+            <col class="c1">
+            <col class="c2">
+            <col class="c3">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>col 1</th>
+                <th>col 2</th>
+                <th>col 3</th>
+                <th>col 4</th>
+            </tr>
+        </thead>
+        <thead class="clone">
+        <tr>
+            <th>col 1</th>
+            <th>col 2</th>
+            <th>col 3</th>
+            <th>col 4</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        // generate content
+        var tbody = $("#table tbody"),
+            rows = '';
+
+        for (var i= 0; i<100; i++) {
+            rows += '<tr><td>' + i + '</td> <td> A </td> <td> B </td> <td> C </td> </tr>'
+        }
+
+        tbody.html(rows);
+
+        // crosshair
+
+        var table = $("table");
+        table.addClass('crosshairOn');
+        table.on('mouseenter mouseleave', "td", function(ev){
+          var index = this.cellIndex,
+              col = table.find("col").eq(index);
+
+          if (ev.type === 'mouseenter') {
+              col.addClass('hover');
+          } else {
+              col.removeClass('hover');
+          }
+        })
+
+    </script>
+</body>
+</html>
