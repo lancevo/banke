@@ -1,21 +1,23 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Banke Demo</title>
+    <title>StickyStuff Demo</title>
+
     <style>
-        .banke {
-            border-collapse: collapse;
-            color:#000;
-            background:lightskyblue;
-            margin: 0 auto;
+        /* required: core css & reset table */
+        table {
+            margin: 0;
+            padding: 0;
+            border: 0;
         }
-
-        .banke thead.clone {
-           /* position: fixed;
+        .banke-clone {
+            margin-top:0;
+            position: fixed;
             top:0;
-            background:lightskyblue;*/
+            z-index:999;
+            background:cyan;
         }
 
+        /* cross hair */
         .banke, .banke td, .banke th {
             border: solid 2px #333;
         }
@@ -30,65 +32,74 @@
         .crosshairOn td:hover {
             background: rgba(204,204,24,.5);
         }
-    </style>
-    <script src="jquery-1.7.1.min.js"></script>
-    <script src="../src/banke.js"></script>
-</head>
-<body>
-    <table id="table" class="banke">
-        <colgroup>
-            <col class="c0">
-            <col class="c1">
-            <col class="c2">
-            <col class="c3">
-        </colgroup>
-        <thead>
-            <tr>
-                <th>col 1</th>
-                <th>col 2</th>
-                <th>col 3</th>
-                <th>col 4</th>
-            </tr>
-        </thead>
-        <thead class="clone">
-        <tr>
-            <th>col 1</th>
-            <th>col 2</th>
-            <th>col 3</th>
-            <th>col 4</th>
-        </tr>
-        </thead>
-        <tbody>
 
-        </tbody>
-    </table>
-
-    <script>
-        // generate content
-        var tbody = $("#table tbody"),
-            rows = '';
-
-        for (var i= 0; i<100; i++) {
-            rows += '<tr><td>' + i + '</td> <td> A </td> <td> B </td> <td> C </td> </tr>'
+        /* your css */
+        table {
+            width:400px;
+            margin:200px 0px 1000px 200px;
+        }
+        th, td {
+            width:100px;
+            height:50px;
+            border:1px solid #000;
         }
 
-        tbody.html(rows);
+        #tbl thead {
+            background:#ddd;
+        }
 
-        // crosshair
 
-        var table = $("table");
-        table.addClass('crosshairOn');
-        table.on('mouseenter mouseleave', "td", function(ev){
-          var index = this.cellIndex,
-              col = table.find("col").eq(index);
 
-          if (ev.type === 'mouseenter') {
-              col.addClass('hover');
-          } else {
-              col.removeClass('hover');
-          }
-        })
 
-    </script>
+    </style>
+    <script src="jquery-1.7.1.min.js"></script>
+    <script src="../src/banke.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+<body>
+
+<table id="tbl">
+    <colgroup>
+        <col>
+        <col>
+        <col>
+        <col>
+    </colgroup>
+    <thead>
+    <tr>
+        <th class="col1"> Column 1 </th>
+        <th class="col2"> Column 2 </th>
+        <th class="col3"> Column 3 </th>
+        <th class="col4"> Column 4 </th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+<script>
+    // generate dummy data
+    var html = '';
+
+    for (var i=100; i; i--) {
+
+        html += '<tr>' +
+                '<td>' +  (Math.random()*1000).toFixed(2) + '</td>' +
+                '<td>' +  (Math.random()*1000).toFixed(2) + '</td>' +
+                '<td>' +  (Math.random()*1000).toFixed(2) + '</td>' +
+                '<td>' +  (Math.random()*1000).toFixed(2) + '</td>' +
+                '</tr>';
+    }
+    $("#tbl tbody").html(html);
+
+
+    $(document).ready(function(){
+        $("#tbl").banke("throttle", 10);
+
+    });
+
+</script>
 </body>
 </html>

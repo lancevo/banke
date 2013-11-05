@@ -4,26 +4,39 @@ Bản kê
 Bản kê (ban - kay): a jQuery to enhance table display such as crosshair, fixed header, and transform its layout on mobile view 
 
 
-Usage
------
+Usage:
+ -----
 
-```javascript
-// default: crosshair, fixed header
-$("#table").banke();
-
-// turn off crosshair:
-$("#table").banke().offCrosshair();
-
-// turn on crosshair
-$("#table").banke().onCrosshair();
+ $("#table").banke()
 
 
-// turn off fixed header
-$("#table").banke().offFixedHeader();
+ Other methods:
 
-// turn on fixed header
-$("#table").banke().onFixedHeader();
-```
+ turn on sticky header
+ $("#table").banke("headeroff");
+
+ turn off sticky header
+ $("#table").banke("headeron");
+
+
+ turn on cross hair
+ $("#table").banke("crosshairon");
+
+
+ turn off cross hair
+ $("#table").banke("crosshairoff");
+
+
+ update throttle time (ms) for sticky header
+ $("#table").banke("throttle", 50);
+
+ These options are only available when first instantiate the object
+
+ add classes to clone table
+ $("#table").banke("classnames","class1 class2 class3");
+
+ add attributes to clone table
+ $("#table").banke("attributes","data-something='abc' data-something-else='def'");
 
 
 
